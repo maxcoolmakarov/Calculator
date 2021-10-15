@@ -4,18 +4,178 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:barrierMargin="1sp"
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/one"
+        android:id="@+id/but"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Settings"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/enter_field"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/clear"
+                style="@style/Button_theme"
+                android:text="C"
+                android:textColor="#0D7011" />
+
+            <TextView
+                android:id="@+id/brackets"
+                style="@style/Button_theme"
+                android:text="()" />
+
+            <TextView
+                android:id="@+id/percent"
+                style="@style/Button_theme"
+                android:text="%" />
+
+            <TextView
+                android:id="@+id/divide"
+                style="@style/Button_theme"
+                android:text="/" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/seven"
+                style="@style/Button_theme"
+                android:text="7" />
+
+            <TextView
+                android:id="@+id/eight"
+                style="@style/Button_theme"
+                android:text="8" />
+
+            <TextView
+                android:id="@+id/nine"
+                style="@style/Button_theme"
+                android:text="9" />
+
+            <TextView
+                android:id="@+id/multiply"
+                style="@style/Button_theme"
+                android:text="*" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/four"
+                style="@style/Button_theme"
+                android:text="4" />
+
+            <TextView
+                android:id="@+id/five"
+                style="@style/Button_theme"
+                android:text="5" />
+
+            <TextView
+                android:id="@+id/six"
+                style="@style/Button_theme"
+                android:text="6" />
+
+            <TextView
+                android:id="@+id/minus"
+                style="@style/Button_theme"
+                android:text="-" />
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/one"
+                style="@style/Button_theme"
+                android:text="1" />
+
+            <TextView
+                android:id="@+id/two"
+                style="@style/Button_theme"
+                android:text="2" />
+
+            <TextView
+                android:id="@+id/three"
+                style="@style/Button_theme"
+                android:text="3" />
+
+            <TextView
+                android:id="@+id/plus"
+                style="@style/Button_theme"
+                android:text="+" />
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/pm"
+                style="@style/Button_theme"
+                android:text="+/-" />
+
+            <TextView
+                android:id="@+id/zero"
+                style="@style/Button_theme"
+                android:text="0" />
+
+            <TextView
+                android:id="@+id/coma"
+                style="@style/Button_theme"
+                android:text="," />
+
+            <TextView
+                android:id="@+id/get_result"
+                style="@style/Button_theme"
+                android:text="=" />
+        </TableRow>
+    </TableLayout>
+
+    <EditText
+        android:id="@+id/enter_field"
+        android:layout_width="match_parent"
+        android:layout_height="80sp"
+        android:inputType="none"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="fill_parent"
+        android:layout_height="200sp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/enter_field"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
