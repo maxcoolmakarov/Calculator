@@ -40,13 +40,33 @@ class MainActivity : AppCompatActivity() {
             viewBinding.seven,
             viewBinding.eight,
             viewBinding.nine).forEachIndexed{ index, textView ->
-            textView.setOnClickListener{ viewModel.onNumberClick(index)}
+            textView.setOnClickListener{ viewModel.onNumberClick(index, viewBinding.enterField.selectionStart)}
         }
 
-                 viewModel.expressionState.observe(this){ state ->
-                     viewBinding.enterField.setText(state)
-                     viewBinding.result.setText(state)
-                 }
+        mapOf(viewBinding.plus to Operator.PLUS,
+            viewBinding.minus to Operator.MINUS,
+            viewBinding.divide to Operator.DEVIDE,
+            viewBinding.multiply to Operator.MULTIPLY,
+            viewBinding.coma to Operator.DOT).forEach { (button, operator) ->
+            button.setOnClickListener { viewModel.onOperatorClick(operator, viewBinding.enterField.selectionStart) }
+        }
+
+        viewBinding.getResult.setOnClickListener { viewModel.onResult() }
+        viewBinding.clearChar.setOnClickListener { viewModel.onClearChar(viewBinding.enterField.selectionStart) }
+        viewBinding.clear.setOnClickListener { viewModel.onClear()}
+
+         viewModel.expressionState.observe(this){ state ->
+             viewBinding.enterField.setText(state.expression)
+             viewBinding.enterField.setSelection(state.selection)
+//             viewBinding.result.text = state
+         }
+
+        viewModel.resultState.observe(this){ state ->
+            viewBinding.result.text = state
+        }
+
+
+
 
     }
 
@@ -61,3 +81,4 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+
