@@ -7,17 +7,6 @@
     app:barrierMargin="1sp"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/but"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Settings"
-        app:layout_constraintBottom_toTopOf="@+id/enter_field"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.052"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
 
     <TableLayout
         android:id="@+id/tableLayout"
@@ -39,15 +28,14 @@
                 android:text="C"
                 android:textColor="#0D7011" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/brackets"-->
-<!--                style="@style/Button_theme"-->
-<!--                android:text="()" />-->
 
             <ImageView
                 android:id="@+id/clearChar"
                 style='@style/Button_theme'
-                app:srcCompat="@drawable/clear_arrow" />
+                android:adjustViewBounds="false"
+                android:cropToPadding="false"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/backspace" />
 
             <TextView
                 android:id="@+id/percent"
@@ -184,5 +172,16 @@
         app:layout_constraintBottom_toTopOf="@+id/enter_field"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/main_activity_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/settings" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

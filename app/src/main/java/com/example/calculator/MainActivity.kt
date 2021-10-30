@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         Log.d(tag, "OnCreate")
         setContentView(R.layout.activity_main)
 
-        viewBinding.but.setOnClickListener{
+        viewBinding.mainActivitySettings.setOnClickListener{
             openSettings()
         }
 
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         Log.d(tag,"OnStart")
     }
     private fun openSettings(){
-        Toast.makeText(this, "Open Settings", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this, "Open Settings", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, SettingsActivity::class.java)
         startActivity(intent)
     }
