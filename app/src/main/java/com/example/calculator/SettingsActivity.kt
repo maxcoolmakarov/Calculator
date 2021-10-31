@@ -6,13 +6,22 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.calculator.databinding.SettingsactivityBinding
+import com.example.calculator.di.SettingsDaoProvider
 
 class SettingsActivity : AppCompatActivity(){
 
     private val viewBinding by viewBinding(SettingsactivityBinding::bind)
-    private val viewModel by viewModels<SettingsViewModel>()
+    private val viewModel by viewModels<SettingsViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return SettingsViewModel(SettingsDaoProvider.getDao(this@SettingsActivity)) as T
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

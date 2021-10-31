@@ -4,9 +4,13 @@ import androidx.lifecycle.ViewModel
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import kotlin.math.exp
+import androidx.lifecycle.viewModelScope
+import com.example.calculator.data.SettingsDao
+import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
+class MainViewModel(
+    private val settingsDao: SettingsDao
+) : ViewModel() {
 
     private var expression: String = ""
     private val _expressionState = MutableLiveData(ExpressionState(expression, 0))
@@ -14,6 +18,15 @@ class MainViewModel : ViewModel() {
 
     private val _resultState = MutableLiveData<String>()
     val resultState: LiveData<String> = _resultState
+
+    private val _resultPanelState = MutableLiveData<ResultPanelType>()
+    val resultPanelState: LiveData<ResultPanelType> = _resultPanelState
+
+    init {
+        viewModelScope.launch {
+            _resultPanelState.value = settingsDao.getResultPanelType()
+        }
+    }
 
     override fun onCleared() {
         super.onCleared()
@@ -60,7 +73,7 @@ class MainViewModel : ViewModel() {
 
     private fun putInSelection(expression: String, put: String, selection: Int, sign: Boolean): String {
         var begin = expression.substring(0, selection)
-        val illegalChar: String = "+-/*"
+        val illegalChar = "+-/*"
         var end = expression.substring(selection, expression.length)
         if (sign) {
             begin = begin.dropLastWhile { a -> illegalChar.contains(a)  }
@@ -69,6 +82,11 @@ class MainViewModel : ViewModel() {
         return begin + put + end
     }
 
+    fun onStart() {
+        viewModelScope.launch {
+            _resultPanelState.value = settingsDao.getResultPanelType()
+        }
+    }
 
 
 }

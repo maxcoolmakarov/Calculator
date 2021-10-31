@@ -4,16 +4,27 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.calculator.databinding.ActivityMainBinding
+import com.example.calculator.di.SettingsDaoProvider
 
 class MainActivity : AppCompatActivity() {
     private val tag: String = this.javaClass.simpleName
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel by viewModels<MainViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MainViewModel(SettingsDaoProvider.getDao(this@MainActivity)) as T
+            }
+        }
+    }
     private val viewBinding by viewBinding(ActivityMainBinding::bind)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +76,16 @@ class MainActivity : AppCompatActivity() {
             viewBinding.result.text = state
         }
 
+        viewModel.resultPanelState.observe(this){
+            with(viewBinding.result) {
+                gravity = when(it){
+                    ResultPanelType.LEFT -> Gravity.START.or(Gravity.CENTER_VERTICAL)
+                    ResultPanelType.RIGHT -> Gravity.END.or(Gravity.CENTER_VERTICAL)
+                    ResultPanelType.HIDE -> gravity
+                }
+                isVisible = it != ResultPanelType.HIDE
+            }
+        }
 
 
 
@@ -72,7 +93,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        Log.d(tag,"OnStart")
+        viewModel.onStart()
     }
     private fun openSettings(){
 //        Toast.makeText(this, "Open Settings", Toast.LENGTH_SHORT).show()
