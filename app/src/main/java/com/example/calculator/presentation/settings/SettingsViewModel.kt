@@ -1,5 +1,6 @@
 package com.example.calculator
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,10 +18,15 @@ class SettingsViewModel(
     private val _openResultPanelAction = MutableLiveData<ResultPanelType>()
     val openResultPanelAction: LiveData<ResultPanelType> = _openResultPanelAction
 
+    private val _resultAccuracy = MutableLiveData<Int>()
+    val resultAccuracy = _resultAccuracy
+
     init {
         viewModelScope.launch {
             _resultPanelState.value = settingsDao.getResultPanelType()
         }
+        _resultAccuracy.value = settingsDao.getResultAccuracy()
+        Log.d("SettingsInit", "polzunok"+settingsDao.getResultAccuracy().toString())
     }
 
     fun onResultPanelStateChanged(resultPanelType: ResultPanelType) {
@@ -35,6 +41,10 @@ class SettingsViewModel(
         _openResultPanelAction.value = _resultPanelState.value
     }
 
+    fun onAccuracyBarChanged(accuracy: Int) {
+        _resultAccuracy.value = accuracy
+        settingsDao.setResultAccuracy(accuracy)
+    }
 }
 
 enum class ResultPanelType {

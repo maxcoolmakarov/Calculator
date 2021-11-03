@@ -100,6 +100,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        viewModel.resultAccuracy.observe(this){
+            viewModel.update()
+        }
+
 
 
     }

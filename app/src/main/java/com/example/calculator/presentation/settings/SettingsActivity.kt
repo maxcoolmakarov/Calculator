@@ -1,6 +1,9 @@
 package com.example.calculator.presentation.settings
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.ProgressBar
+import android.widget.SeekBar
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -27,6 +30,13 @@ class SettingsActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settingsactivity)
+
+        viewBinding.accuracy.progress = viewModel.resultAccuracy.value?: 0
+        if (viewBinding.accuracy.progress != 0)
+            viewBinding.accuracyLabel.setText("Accuracy: " + viewBinding.accuracy.progress.toString())
+        else
+            viewBinding.accuracyLabel.setText("Accuracy: Default")
+
         viewBinding.settingsBack.setOnClickListener {
             finish()
         }
@@ -35,6 +45,32 @@ class SettingsActivity : AppCompatActivity(){
             viewModel.openResultPanelAction()
         }
 
+        viewBinding.accuracy.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    viewModel.onAccuracyBarChanged(progress)
+                    if (progress != 0)
+                        viewBinding.accuracyLabel.setText("Accuracy: " + progress.toString())
+                    else
+                        viewBinding.accuracyLabel.setText("Accuracy: Default")
+                }
+
+                Log.d("Settings", "polzunok"+progress.toString())
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+
+            }
+        })
+
+//        viewModel.resultAccuracy.observe(this) { state ->
+//            viewBinding.accuracy.progress = state
+//        }
+
         viewModel.resultPanelState.observe(this) { state ->
             viewBinding.resultPanelDescription.text = resources.getStringArray(R.array.result_panel_tpes)[state.ordinal]
         }
@@ -42,6 +78,7 @@ class SettingsActivity : AppCompatActivity(){
         viewModel.openResultPanelAction.observe(this) { type ->
             showDialog(type)
         }
+
 
     }
 

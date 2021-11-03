@@ -13,4 +13,8 @@ interface SettingsDao {
      * setting the type of panel drawing result
      */
     suspend fun setResultPanelType(resultPanelType: ResultPanelType)
+
+    fun setResultAccuracy(accuracy: Int)
+
+    fun getResultAccuracy(): Int
 }

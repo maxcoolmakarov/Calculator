@@ -1,6 +1,7 @@
 package com.example.calculator.data
 
 import android.content.SharedPreferences
+import android.util.Log
 import com.example.calculator.ResultPanelType
 import com.example.calculator.domain.SettingsDao
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +19,17 @@ class SettingsDaoImpl(
         preferences.edit().putString(RESULT_PANEL_TYPE_KEY, resultPanelType.name).apply()
     }
 
+    override fun setResultAccuracy(accuracy: Int) {
+        Log.d("setResAccuracy", accuracy.toString())
+        preferences.edit().putInt(RESULT_ACCURACY_KEY, accuracy).apply()
+    }
+
+    override fun getResultAccuracy(): Int {
+       return preferences.getInt(RESULT_ACCURACY_KEY, 0)
+    }
+
     companion object {
         private const val RESULT_PANEL_TYPE_KEY = "RESULT_PANEL_TYPE_KEY"
+        private const val RESULT_ACCURACY_KEY = "RESULT_ACCURACY_KEY"
     }
 }

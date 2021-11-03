@@ -7,13 +7,18 @@ import java.lang.Math.floor
  *  Calculating the result for the [expression]
 */
 
-fun expressionCalculator(expression: String): String {
+fun expressionCalculator(expression: String, format: Int = 0): String {
+    Log.d("calculating", format.toString())
     try{
         val result: Double = DoubleEvaluator().evaluate(expression)
         return if (floor(result) == result) {
             result.toInt().toString()
         } else {
-            result.toString()
+            if (format > 0) {
+                result.format(format)
+            }
+            else
+                result.toString()
         }
     } catch (e: Exception) {
         return expression
@@ -34,3 +39,5 @@ fun expressionCalculatorDouble(expression: String): Double {
     }
 
 }
+
+fun Double.format(digits: Int) = "%.${digits}f".format(this)

@@ -31,13 +31,12 @@
         android:id="@+id/result_panel_conteiner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginTop="19dp"
         android:background="?attr/selectableItemBackground"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/title">
 
         <TextView
             android:id="@+id/result_panel_title"
@@ -47,7 +46,7 @@
             android:layout_marginEnd="8dp"
             android:text="@string/settings_result_panel"
             android:textColor="#000"
-            />
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/result_panel_description"
@@ -57,7 +56,33 @@
             android:layout_marginTop="0dp"
             android:layout_marginEnd="8dp"
             android:text="Hidden"
+            android:textSize="16dp"
 
             />
     </LinearLayout>
+
+    <SeekBar
+        android:id="@+id/accuracy"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="375dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="62dp"
+        android:contextClickable="false"
+        android:max="5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/result_panel_conteiner" />
+
+    <TextView
+        android:id="@+id/accuracy_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:text="Accuracy: 0"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/result_panel_conteiner" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

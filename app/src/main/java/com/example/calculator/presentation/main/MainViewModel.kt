@@ -25,20 +25,29 @@ class MainViewModel(
     private val _resultPanelState = MutableLiveData<ResultPanelType>()
     val resultPanelState: LiveData<ResultPanelType> = _resultPanelState
 
+    private val _resultAccuracy = MutableLiveData<Int>()
+    val resultAccuracy = _resultAccuracy
+
     init {
         viewModelScope.launch {
             _resultPanelState.value = settingsDao.getResultPanelType()
         }
+        _resultAccuracy.value = settingsDao.getResultAccuracy()
     }
 
     override fun onCleared() {
         super.onCleared()
         Log.d("MainViewModel", "OnCleared")
     }
+
+    fun update() {
+        _resultState.value = expressionCalculator(expression, _resultAccuracy.value?:0)
+    }
+
     fun onNumberClick(number: Int, selection: Int){
         expression = putInSelection(expression, number.toString(), selection, false)
         _expressionState.value = ExpressionState(expression, selection + 1)
-        _resultState.value = expressionCalculator(expression)
+        _resultState.value = expressionCalculator(expression, _resultAccuracy.value?:0)
     }
 
     fun onOperatorClick(operator: Operator, selection: Int) {
@@ -49,7 +58,7 @@ class MainViewModel(
         } else {
             _expressionState.value = ExpressionState(expression, selection + 1)
         }
-        _resultState.value = expressionCalculator(expression)
+        _resultState.value = expressionCalculator(expression, _resultAccuracy.value?:0)
 
     }
 
@@ -57,7 +66,7 @@ class MainViewModel(
         if (expression.isNotEmpty()) {
             expression =  expression.dropLast(1)
             _expressionState.value = ExpressionState(expression, selection - 1)
-            _resultState.value = expressionCalculator(expression)
+            _resultState.value = expressionCalculator(expression, _resultAccuracy.value?:0)
         }
     }
 
@@ -68,7 +77,7 @@ class MainViewModel(
     }
 
     fun onResult() {
-        val result = expressionCalculator(expression)
+        val result = expressionCalculator(expression, _resultAccuracy.value?:0)
 
         viewModelScope.launch {
             historyRepository.add(HistoryItem(expression, result))
@@ -93,9 +102,10 @@ class MainViewModel(
         viewModelScope.launch {
             _resultPanelState.value = settingsDao.getResultPanelType()
         }
+        _resultAccuracy.value = settingsDao.getResultAccuracy()
     }
 
-    fun onHistoryResult(item: HistoryItem) {
+    fun onHistoryResult(item: HistoryItem?) {
         if (item != null) {
             expression = item.expression
             _expressionState.value = ExpressionState(expression, expression.length)
