@@ -1,7 +1,7 @@
 package com.example.calculator
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.calculator.data.SettingsDao
+import com.example.calculator.domain.SettingsDao
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test

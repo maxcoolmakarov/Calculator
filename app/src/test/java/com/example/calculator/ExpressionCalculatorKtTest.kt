@@ -21,4 +21,11 @@ class ExpressionCalculatorKtTest {
         Assert.assertEquals(res, expressionCalculator(expr))
 
     }
+
+    @Test
+    fun testDouble() {
+        val expr = "5.1+0.1"
+        val res : Double = 5.2
+        Assert.assertEquals(res, expressionCalculatorDouble(expr))
+    }
 }

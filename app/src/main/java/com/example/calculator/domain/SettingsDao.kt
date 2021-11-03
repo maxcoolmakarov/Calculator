@@ -1,4 +1,4 @@
-package com.example.calculator.data
+package com.example.calculator.domain
 
 import com.example.calculator.ResultPanelType
 

@@ -1,7 +1,7 @@
 package com.example.calculator.di
 
 import android.content.Context
-import com.example.calculator.data.SettingsDao
+import com.example.calculator.domain.SettingsDao
 import com.example.calculator.data.SettingsDaoImpl
 
 object SettingsDaoProvider {

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:barrierMargin="1sp"
-    tools:context=".MainActivity">
+    tools:context=".presentation.main.MainActivity">
 
 
     <TableLayout
@@ -34,6 +34,7 @@
                 style='@style/Button_theme'
                 android:adjustViewBounds="false"
                 android:cropToPadding="false"
+                android:padding="18dp"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/backspace" />
 
@@ -182,6 +183,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/settings" />
 
+    <ImageView
+        android:id="@+id/main_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:src="@drawable/ic_history"
+        app:layout_constraintEnd_toStartOf="@+id/main_activity_settings"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

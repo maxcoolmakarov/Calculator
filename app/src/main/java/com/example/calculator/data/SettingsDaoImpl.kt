@@ -2,6 +2,7 @@ package com.example.calculator.data
 
 import android.content.SharedPreferences
 import com.example.calculator.ResultPanelType
+import com.example.calculator.domain.SettingsDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

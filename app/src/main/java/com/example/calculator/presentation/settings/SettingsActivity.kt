@@ -1,14 +1,15 @@
-package com.example.calculator
+package com.example.calculator.presentation.settings
 
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.calculator.R
+import com.example.calculator.ResultPanelType
+import com.example.calculator.SettingsViewModel
 import com.example.calculator.databinding.SettingsactivityBinding
 import com.example.calculator.di.SettingsDaoProvider
 

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.calculator.data.SettingsDao
+import com.example.calculator.domain.SettingsDao
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(

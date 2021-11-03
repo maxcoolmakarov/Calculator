@@ -5,11 +5,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.calculator.data.SettingsDao
+import com.example.calculator.domain.HistoryRepository
+import com.example.calculator.domain.SettingsDao
+import com.example.calculator.presentation.history.HistoryItem
 import kotlinx.coroutines.launch
 
 class MainViewModel(
-    private val settingsDao: SettingsDao
+    private val settingsDao: SettingsDao,
+    private val historyRepository: HistoryRepository
 ) : ViewModel() {
 
     private var expression: String = ""
@@ -66,6 +69,10 @@ class MainViewModel(
 
     fun onResult() {
         val result = expressionCalculator(expression)
+
+        viewModelScope.launch {
+            historyRepository.add(HistoryItem(expression, result))
+        }
         expression = result
         _expressionState.value = ExpressionState(result, result.length)
         _resultState.value = ""
@@ -85,6 +92,14 @@ class MainViewModel(
     fun onStart() {
         viewModelScope.launch {
             _resultPanelState.value = settingsDao.getResultPanelType()
+        }
+    }
+
+    fun onHistoryResult(item: HistoryItem) {
+        if (item != null) {
+            expression = item.expression
+            _expressionState.value = ExpressionState(expression, expression.length)
+            _resultState.value = item.result
         }
     }
 

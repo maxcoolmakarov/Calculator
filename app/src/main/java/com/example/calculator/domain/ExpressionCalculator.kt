@@ -20,3 +20,17 @@ fun expressionCalculator(expression: String): String {
     }
 
 }
+
+fun expressionCalculatorDouble(expression: String): Double {
+    try{
+        val result: Double = DoubleEvaluator().evaluate(expression)
+        return if (floor(result) == result) {
+            result
+        } else {
+            result
+        }
+    } catch (e: Exception) {
+        return 0.0
+    }
+
+}

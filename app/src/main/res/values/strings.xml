@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Calculator</string>
     <string name="settings_result_panel">Result panel</string>
+    <string name="history_title">History</string>
     <string-array name="result_panel_tpes">
         <item> Show on the left</item>
         <item>Show on the right</item>
