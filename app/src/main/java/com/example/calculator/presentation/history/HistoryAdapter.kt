@@ -13,7 +13,7 @@ class HistoryAdapter(
     private var data: List<HistoryItem> = emptyList()
 
     fun setData(data: List<HistoryItem>) {
-        this.data = data
+        this.data = data.reversed()
         notifyDataSetChanged()
     }
 

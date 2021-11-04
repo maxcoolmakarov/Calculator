@@ -39,9 +39,9 @@
                 app:srcCompat="@drawable/backspace" />
 
             <TextView
-                android:id="@+id/percent"
+                android:id="@+id/sqrt"
                 style="@style/Button_theme"
-                android:text="%" />
+                android:text="sqrt" />
 
             <TextView
                 android:id="@+id/divide"
@@ -133,9 +133,9 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/pm"
+                android:id="@+id/pow"
                 style="@style/Button_theme"
-                android:text="+/-" />
+                android:text="^" />
 
             <TextView
                 android:id="@+id/zero"

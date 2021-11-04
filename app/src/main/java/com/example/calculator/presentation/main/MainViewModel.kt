@@ -1,7 +1,11 @@
 package com.example.calculator
 
+import android.content.Context
+import android.os.Vibrator
 import androidx.lifecycle.ViewModel
 import android.util.Log
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.ContextCompat.getSystemServiceName
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -27,6 +31,8 @@ class MainViewModel(
 
     private val _resultAccuracy = MutableLiveData<Int>()
     val resultAccuracy = _resultAccuracy
+
+
 
     init {
         viewModelScope.launch {
@@ -117,7 +123,7 @@ class MainViewModel(
 }
 
 enum class Operator(val symbol: String) {
-    PLUS("+"), MINUS("-"), MULTIPLY("*"), DEVIDE("/"), DOT(".")
+    PLUS("+"), MINUS("-"), MULTIPLY("*"), DEVIDE("/"), DOT("."), POW("^"), SQRT("^0.5")
 }
 
 class ExpressionState(val expression: String, val selection: Int)

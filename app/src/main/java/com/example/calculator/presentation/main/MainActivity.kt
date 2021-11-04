@@ -1,12 +1,17 @@
 package com.example.calculator.presentation.main
 
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.Log
 import android.view.Gravity
 import androidx.activity.result.launch
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -36,10 +41,14 @@ class MainActivity : AppCompatActivity() {
         viewModel.onHistoryResult(item)
     }
 
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(tag, "OnCreate")
         setContentView(R.layout.activity_main)
+
+        val vibration = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
         viewBinding.mainActivitySettings.setOnClickListener{
             openSettings()
@@ -48,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         viewBinding.mainHistory.setOnClickListener {
             openHistory()
         }
+
 
         viewBinding.enterField.apply {
             showSoftInputOnFocus = false
@@ -71,7 +81,9 @@ class MainActivity : AppCompatActivity() {
             viewBinding.minus to Operator.MINUS,
             viewBinding.divide to Operator.DEVIDE,
             viewBinding.multiply to Operator.MULTIPLY,
-            viewBinding.coma to Operator.DOT
+            viewBinding.coma to Operator.DOT,
+            viewBinding.pow to Operator.POW,
+            viewBinding.sqrt to Operator.SQRT
         ).forEach { (button, operator) ->
             button.setOnClickListener { viewModel.onOperatorClick(operator, viewBinding.enterField.selectionStart) }
         }
@@ -79,6 +91,10 @@ class MainActivity : AppCompatActivity() {
         viewBinding.getResult.setOnClickListener { viewModel.onResult() }
         viewBinding.clearChar.setOnClickListener { viewModel.onClearChar(viewBinding.enterField.selectionStart) }
         viewBinding.clear.setOnClickListener { viewModel.onClear()}
+
+        viewBinding.tableLayout.setOnClickListener {
+            vibration.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
+        }
 
          viewModel.expressionState.observe(this){ state ->
              viewBinding.enterField.setText(state.expression)
@@ -122,6 +138,7 @@ class MainActivity : AppCompatActivity() {
 //        val intent = Intent(this, HistoryActivity::class.java)
 //        startActivity(intent)
     }
+
 
 }
 
