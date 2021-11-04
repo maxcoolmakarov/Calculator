@@ -45,6 +45,10 @@ class SettingsActivity : AppCompatActivity(){
             viewModel.openResultPanelAction()
         }
 
+        viewBinding.vibrationSeek.progress = viewModel.vibrationForce.value?:1
+
+        viewBinding.vibratorLabel.setText("Vibration force: " + viewBinding.vibrationSeek.progress.toString())
+
         viewBinding.accuracy.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
@@ -58,6 +62,22 @@ class SettingsActivity : AppCompatActivity(){
                 Log.d("Settings", "polzunok"+progress.toString())
             }
 
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+
+            }
+        })
+
+        viewBinding.vibrationSeek.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    viewModel.onVibrationForceChanged(progress)
+                    viewBinding.vibratorLabel.setText("Vibration force: " + viewBinding.vibrationSeek.progress.toString())
+                }
+            }
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
 
             }

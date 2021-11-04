@@ -32,6 +32,9 @@ class MainViewModel(
     private val _resultAccuracy = MutableLiveData<Int>()
     val resultAccuracy = _resultAccuracy
 
+    private val _vibrationForce = MutableLiveData<Int>()
+    val vibrationForce = _vibrationForce
+
 
 
     init {
@@ -39,6 +42,7 @@ class MainViewModel(
             _resultPanelState.value = settingsDao.getResultPanelType()
         }
         _resultAccuracy.value = settingsDao.getResultAccuracy()
+        _vibrationForce.value = settingsDao.getVibrationForce()
     }
 
     override fun onCleared() {
@@ -109,6 +113,8 @@ class MainViewModel(
             _resultPanelState.value = settingsDao.getResultPanelType()
         }
         _resultAccuracy.value = settingsDao.getResultAccuracy()
+
+        _vibrationForce.value = settingsDao.getVibrationForce()
     }
 
     fun onHistoryResult(item: HistoryItem?) {

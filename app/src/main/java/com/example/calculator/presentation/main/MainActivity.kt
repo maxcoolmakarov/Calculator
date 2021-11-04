@@ -74,7 +74,8 @@ class MainActivity : AppCompatActivity() {
             viewBinding.seven,
             viewBinding.eight,
             viewBinding.nine).forEachIndexed{ index, textView ->
-            textView.setOnClickListener{ viewModel.onNumberClick(index, viewBinding.enterField.selectionStart)}
+            textView.setOnClickListener{ viewModel.onNumberClick(index, viewBinding.enterField.selectionStart)
+                vibration.vibrate(VibrationEffect.createOneShot(200, viewModel.vibrationForce.value?:1))}
         }
 
         mapOf(viewBinding.plus to Operator.PLUS,
@@ -85,16 +86,17 @@ class MainActivity : AppCompatActivity() {
             viewBinding.pow to Operator.POW,
             viewBinding.sqrt to Operator.SQRT
         ).forEach { (button, operator) ->
-            button.setOnClickListener { viewModel.onOperatorClick(operator, viewBinding.enterField.selectionStart) }
+            button.setOnClickListener { viewModel.onOperatorClick(operator, viewBinding.enterField.selectionStart)
+                vibration.vibrate(VibrationEffect.createOneShot(200, viewModel.vibrationForce.value?:1))}
         }
 
-        viewBinding.getResult.setOnClickListener { viewModel.onResult() }
-        viewBinding.clearChar.setOnClickListener { viewModel.onClearChar(viewBinding.enterField.selectionStart) }
-        viewBinding.clear.setOnClickListener { viewModel.onClear()}
+        viewBinding.getResult.setOnClickListener { viewModel.onResult()
+            vibration.vibrate(VibrationEffect.createOneShot(200, viewModel.vibrationForce.value?:1))}
+        viewBinding.clearChar.setOnClickListener { viewModel.onClearChar(viewBinding.enterField.selectionStart)
+            vibration.vibrate(VibrationEffect.createOneShot(200, viewModel.vibrationForce.value?:1))}
+        viewBinding.clear.setOnClickListener { viewModel.onClear()
+            vibration.vibrate(VibrationEffect.createOneShot(200, viewModel.vibrationForce.value?:1))}
 
-        viewBinding.tableLayout.setOnClickListener {
-            vibration.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
-        }
 
          viewModel.expressionState.observe(this){ state ->
              viewBinding.enterField.setText(state.expression)

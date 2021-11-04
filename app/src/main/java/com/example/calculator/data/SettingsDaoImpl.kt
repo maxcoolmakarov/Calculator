@@ -28,8 +28,17 @@ class SettingsDaoImpl(
        return preferences.getInt(RESULT_ACCURACY_KEY, 0)
     }
 
+    override fun setVibrationForce(force: Int) {
+        preferences.edit().putInt(VIBRATION_FORCE_KEY, force).apply()
+    }
+
+    override fun getVibrationForce(): Int {
+        return preferences.getInt(VIBRATION_FORCE_KEY, 1)
+    }
+
     companion object {
         private const val RESULT_PANEL_TYPE_KEY = "RESULT_PANEL_TYPE_KEY"
         private const val RESULT_ACCURACY_KEY = "RESULT_ACCURACY_KEY"
+        private const val VIBRATION_FORCE_KEY = "VIBRATION_FORCE_KEY"
     }
 }

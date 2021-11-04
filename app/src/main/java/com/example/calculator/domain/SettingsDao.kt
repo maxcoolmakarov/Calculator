@@ -14,7 +14,23 @@ interface SettingsDao {
      */
     suspend fun setResultPanelType(resultPanelType: ResultPanelType)
 
+    /**
+     * setting the accuracy of the result
+     */
     fun setResultAccuracy(accuracy: Int)
 
+    /**
+     * get the result accuracy
+     */
     fun getResultAccuracy(): Int
+
+    /**
+     * set the vibration force
+     */
+    fun setVibrationForce(force: Int)
+
+    /**
+     * get vibration force
+     */
+    fun getVibrationForce(): Int
 }

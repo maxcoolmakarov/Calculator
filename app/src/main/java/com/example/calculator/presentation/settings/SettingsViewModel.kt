@@ -21,11 +21,15 @@ class SettingsViewModel(
     private val _resultAccuracy = MutableLiveData<Int>()
     val resultAccuracy = _resultAccuracy
 
+    private val _vibrationForce = MutableLiveData<Int>()
+    val vibrationForce = _vibrationForce
+
     init {
         viewModelScope.launch {
             _resultPanelState.value = settingsDao.getResultPanelType()
         }
         _resultAccuracy.value = settingsDao.getResultAccuracy()
+        _vibrationForce.value = settingsDao.getVibrationForce()
         Log.d("SettingsInit", "polzunok"+settingsDao.getResultAccuracy().toString())
     }
 
@@ -44,6 +48,11 @@ class SettingsViewModel(
     fun onAccuracyBarChanged(accuracy: Int) {
         _resultAccuracy.value = accuracy
         settingsDao.setResultAccuracy(accuracy)
+    }
+
+    fun onVibrationForceChanged(force: Int) {
+        _vibrationForce.value = force
+        settingsDao.setVibrationForce(force)
     }
 }
 
