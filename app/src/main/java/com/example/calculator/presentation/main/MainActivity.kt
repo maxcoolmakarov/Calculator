@@ -83,12 +83,13 @@ class MainActivity : AppCompatActivity() {
             viewBinding.divide to Operator.DEVIDE,
             viewBinding.multiply to Operator.MULTIPLY,
             viewBinding.coma to Operator.DOT,
-            viewBinding.pow to Operator.POW,
-            viewBinding.sqrt to Operator.SQRT
+            viewBinding.pow to Operator.POW
         ).forEach { (button, operator) ->
             button.setOnClickListener { viewModel.onOperatorClick(operator, viewBinding.enterField.selectionStart)
                 vibration.vibrate(VibrationEffect.createOneShot(200, viewModel.vibrationForce.value?:1))}
         }
+
+        viewBinding.brackets.setOnClickListener { viewModel.onBracketClick(viewBinding.enterField.selectionStart) }
 
         viewBinding.getResult.setOnClickListener { viewModel.onResult()
             vibration.vibrate(VibrationEffect.createOneShot(200, viewModel.vibrationForce.value?:1))}
@@ -96,6 +97,10 @@ class MainActivity : AppCompatActivity() {
             vibration.vibrate(VibrationEffect.createOneShot(200, viewModel.vibrationForce.value?:1))}
         viewBinding.clear.setOnClickListener { viewModel.onClear()
             vibration.vibrate(VibrationEffect.createOneShot(200, viewModel.vibrationForce.value?:1))}
+
+        viewBinding.tableLayout.setOnClickListener {
+            Log.d("Click", "click")
+        }
 
 
          viewModel.expressionState.observe(this){ state ->

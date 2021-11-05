@@ -13,6 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:contextClickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -39,9 +41,9 @@
                 app:srcCompat="@drawable/backspace" />
 
             <TextView
-                android:id="@+id/sqrt"
+                android:id="@+id/brackets"
                 style="@style/Button_theme"
-                android:text="sqrt" />
+                android:text="( )" />
 
             <TextView
                 android:id="@+id/divide"

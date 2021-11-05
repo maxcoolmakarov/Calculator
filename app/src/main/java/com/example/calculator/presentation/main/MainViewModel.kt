@@ -74,7 +74,9 @@ class MainViewModel(
 
     fun onClearChar(selection: Int) {
         if (expression.isNotEmpty()) {
-            expression =  expression.dropLast(1)
+            val begin = expression.substring(0, selection)
+            val end = expression.substring(selection, expression.length)
+            expression =  begin.dropLast(1) + end
             _expressionState.value = ExpressionState(expression, selection - 1)
             _resultState.value = expressionCalculator(expression, _resultAccuracy.value?:0)
         }
@@ -99,13 +101,29 @@ class MainViewModel(
 
     private fun putInSelection(expression: String, put: String, selection: Int, sign: Boolean): String {
         var begin = expression.substring(0, selection)
-        val illegalChar = "+-/*"
+        val illegalChar = "+-/*^"
         var end = expression.substring(selection, expression.length)
         if (sign) {
             begin = begin.dropLastWhile { a -> illegalChar.contains(a)  }
             end = end.dropWhile { a -> illegalChar.contains(a) }
         }
         return begin + put + end
+    }
+
+    private fun setBracket(expression: String, selection: Int):String {
+        var begin: String = expression.substring(0, selection)
+        val legalChar = "+-/*^"
+        var end: String = expression.substring(selection, expression.length)
+        return if (legalChar.contains(begin.lastOrNull()?:'+') || begin.lastOrNull() == '(')
+            "$begin($end"
+            else
+            "$begin)$end"
+    }
+
+    fun onBracketClick(selection: Int){
+        expression = setBracket(expression, selection)
+        _expressionState.value = ExpressionState(expression, selection + 1)
+        _resultState.value = expressionCalculator(expression, _resultAccuracy.value?:0)
     }
 
     fun onStart() {
@@ -129,7 +147,7 @@ class MainViewModel(
 }
 
 enum class Operator(val symbol: String) {
-    PLUS("+"), MINUS("-"), MULTIPLY("*"), DEVIDE("/"), DOT("."), POW("^"), SQRT("^0.5")
+    PLUS("+"), MINUS("-"), MULTIPLY("*"), DEVIDE("/"), DOT("."), POW("^")
 }
 
 class ExpressionState(val expression: String, val selection: Int)
