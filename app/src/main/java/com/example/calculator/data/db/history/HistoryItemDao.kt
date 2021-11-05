@@ -17,6 +17,9 @@ interface HistoryItemDao {
     @Delete
     suspend fun delete(historyItemEntity: List<HistoryItemEntity>)
 
+    @Query("DELETE FROM history_item_entity")
+    suspend fun deleteAll()
+
     @Query("SELECT * FROM history_item_entity")
     suspend fun getAll(): List<HistoryItemEntity>
 }

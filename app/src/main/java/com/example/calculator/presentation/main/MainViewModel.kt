@@ -90,13 +90,14 @@ class MainViewModel(
 
     fun onResult() {
         val result = expressionCalculator(expression, _resultAccuracy.value?:0)
-
-        viewModelScope.launch {
-            historyRepository.add(HistoryItem(expression, result))
+        if (result.isNotEmpty()) {
+            viewModelScope.launch {
+                historyRepository.add(HistoryItem(expression, result))
+            }
+            expression = result
+            _expressionState.value = ExpressionState(result, result.length)
+            _resultState.value = ""
         }
-        expression = result
-        _expressionState.value = ExpressionState(result, result.length)
-        _resultState.value = ""
     }
 
     private fun putInSelection(expression: String, put: String, selection: Int, sign: Boolean): String {

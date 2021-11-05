@@ -53,6 +53,10 @@ class HistoryActivity : AppCompatActivity() {
             finish()
         }
 
+        viewBinding.clearHistory.setOnClickListener {
+            viewModel.onClearClicked()
+        }
+
 
     }
 

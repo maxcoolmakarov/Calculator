@@ -7,7 +7,7 @@
             <solid android:color="@color/white"/>
 
         <stroke
-            android:color="#72C117"
+            android:color="#5934B3"
             android:width="3sp"/>
         </shape>
     </item>

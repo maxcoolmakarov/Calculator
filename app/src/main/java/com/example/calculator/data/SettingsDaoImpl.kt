@@ -33,7 +33,7 @@ class SettingsDaoImpl(
     }
 
     override fun getVibrationForce(): Int {
-        return preferences.getInt(VIBRATION_FORCE_KEY, 1)
+        return preferences.getInt(VIBRATION_FORCE_KEY, 0)
     }
 
     companion object {

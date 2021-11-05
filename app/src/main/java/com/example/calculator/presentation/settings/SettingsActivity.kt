@@ -59,7 +59,6 @@ class SettingsActivity : AppCompatActivity(){
                         viewBinding.accuracyLabel.setText("Accuracy: Default")
                 }
 
-                Log.d("Settings", "polzunok"+progress.toString())
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {

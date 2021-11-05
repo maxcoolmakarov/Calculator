@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(tag, "OnCreate")
@@ -75,7 +74,7 @@ class MainActivity : AppCompatActivity() {
             viewBinding.eight,
             viewBinding.nine).forEachIndexed{ index, textView ->
             textView.setOnClickListener{ viewModel.onNumberClick(index, viewBinding.enterField.selectionStart)
-                vibration.vibrate(VibrationEffect.createOneShot(200, viewModel.vibrationForce.value?:1))}
+                vibrateCustom(vibration, viewModel.vibrationForce.value?:0)}
         }
 
         mapOf(viewBinding.plus to Operator.PLUS,
@@ -86,21 +85,18 @@ class MainActivity : AppCompatActivity() {
             viewBinding.pow to Operator.POW
         ).forEach { (button, operator) ->
             button.setOnClickListener { viewModel.onOperatorClick(operator, viewBinding.enterField.selectionStart)
-                vibration.vibrate(VibrationEffect.createOneShot(200, viewModel.vibrationForce.value?:1))}
+                vibrateCustom(vibration, viewModel.vibrationForce.value?:0)}
         }
 
-        viewBinding.brackets.setOnClickListener { viewModel.onBracketClick(viewBinding.enterField.selectionStart) }
+        viewBinding.brackets.setOnClickListener { viewModel.onBracketClick(viewBinding.enterField.selectionStart)
+            vibrateCustom(vibration, viewModel.vibrationForce.value?:0)}
 
         viewBinding.getResult.setOnClickListener { viewModel.onResult()
-            vibration.vibrate(VibrationEffect.createOneShot(200, viewModel.vibrationForce.value?:1))}
+            vibrateCustom(vibration, viewModel.vibrationForce.value?:0)}
         viewBinding.clearChar.setOnClickListener { viewModel.onClearChar(viewBinding.enterField.selectionStart)
-            vibration.vibrate(VibrationEffect.createOneShot(200, viewModel.vibrationForce.value?:1))}
+            vibrateCustom(vibration, viewModel.vibrationForce.value?:0)}
         viewBinding.clear.setOnClickListener { viewModel.onClear()
-            vibration.vibrate(VibrationEffect.createOneShot(200, viewModel.vibrationForce.value?:1))}
-
-        viewBinding.tableLayout.setOnClickListener {
-            Log.d("Click", "click")
-        }
+            vibrateCustom(vibration, viewModel.vibrationForce.value?:0)}
 
 
          viewModel.expressionState.observe(this){ state ->
@@ -144,6 +140,18 @@ class MainActivity : AppCompatActivity() {
         resultLauncher.launch()
 //        val intent = Intent(this, HistoryActivity::class.java)
 //        startActivity(intent)
+    }
+
+    private fun vibrateCustom(vibration: Vibrator, force: Int) {
+        if (force > 0 && vibration.hasVibrator())
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                // API 26
+                vibration.vibrate(VibrationEffect.createOneShot(200, force))
+            } else {
+                // This method was deprecated in API level 26
+                vibration.vibrate(200)
+            }
+
     }
 
 

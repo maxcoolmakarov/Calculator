@@ -13,6 +13,10 @@ class HistoryRepositoryImpl(
     override suspend fun getAll(): List<HistoryItem> =
         historyItemDao.getAll().map { it.toHistoryItem() }
 
+    override suspend fun deleteAll() {
+        historyItemDao.deleteAll()
+    }
+
 
     private fun HistoryItem.toHistoryItemEntity() = HistoryItemEntity (
         id = 0,

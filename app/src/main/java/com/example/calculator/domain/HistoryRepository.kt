@@ -8,4 +8,6 @@ interface HistoryRepository {
 
     suspend fun getAll(): List<HistoryItem>
 
+    suspend fun deleteAll()
+
 }
